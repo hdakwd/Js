@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>timeBetween</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    </head>
+    <body>
+        <script>
+            $(function () {
+                count=0;
+                timer = setInterval(function () {
+                    console.log('time between');
+                    count=count+1;
+                    if (count > 5) {clearInterval(timer)}
+                }, 10000)
+            });
+        </script>
+    </body>
+</html>
