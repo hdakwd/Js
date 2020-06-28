@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+        <script>
+            $(function(){
+                console.log('read');
+                $('#btn').on('click', function() {
+                    csv_data = "";
+                    console.log('csv(before): '+csv_data);
+                    $('table > tbody > tr').each(function() {
+                        //console.log($(this).text());
+                        $(this).children('td').each(function() {
+                            val=$(this).text()+',';
+                            console.log(val);
+                            csv_data +=val;
+                        })
+                        
+                    });
+                    console.log('csv(after): '+csv_data);
+
+                    let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
+                    let blob = new Blob([bom, csv_data], {type: 'text/xlsm'});
+                    let url = (window.URL || window.webkitURL).createObjectURL(blob);
+                    let link = document.createElement('a');
+                    link.download = 'result.csv';
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+            })
+        </script>
+        <table>
+            <thead>
+                <td>A</td>
+                <td>B</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>あ</td>
+                    <td>亜</td>
+                </tr>
+                <tr>
+                    <td>い</td>
+                    <td>居</td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="button" id="btn" value="push">
+    </body>
+</html>
